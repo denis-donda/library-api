@@ -43,7 +43,7 @@ public class BookControlerTest {
     BookService service;
 
     @Test
-    @DisplayName("Deve criar um livro com sucesso.")
+    @DisplayName("POST - Deve criar um livro com sucesso.")
     public void createBookTest() throws Exception{
 
         BookDTO dto = createNewBook();
@@ -70,7 +70,7 @@ public class BookControlerTest {
     }
 
     @Test
-    @DisplayName("Deve lançar erro de validação quando não houver dados suficientes para criação do livro.")
+    @DisplayName("POST - Deve lançar erro de validação quando não houver dados suficientes para criação do livro.")
     public void createInvalidBookTest() throws Exception {
 
         String json = new ObjectMapper().writeValueAsString(new BookDTO());
@@ -87,7 +87,7 @@ public class BookControlerTest {
     }
     
     @Test
-    @DisplayName("Deve lançar erro ao tentar cadastrar um livro com isbn já utilizado por outro.")
+    @DisplayName("POST - Deve lançar erro ao tentar cadastrar um livro com isbn já utilizado por outro.")
     public void createBookWithDuplicatedIsbn() throws Exception{
         //arranje
         BookDTO dto = createNewBook();
@@ -112,7 +112,7 @@ public class BookControlerTest {
     }
 
     @Test
-    @DisplayName("Deve obter informações de um livro.")
+    @DisplayName("GET - Deve obter informações de um livro.")
     public void getBookDetailsTest() throws Exception {
         //arrange ou given "dado"
         Long id = 1L;
@@ -143,7 +143,7 @@ public class BookControlerTest {
     }
 
     @Test
-    @DisplayName("Deve retornar resource not found quando o livro procurado não existir.")
+    @DisplayName("GET - Deve retornar resource not found quando o livro procurado não existir.")
     public void bookNotFoundTest() throws Exception{
 
         BDDMockito.given(service.getById(Mockito.anyLong())).willReturn(Optional.empty());
@@ -153,7 +153,13 @@ public class BookControlerTest {
                 .get(BOOK_API.concat("/" + 1)) //Qualquer Id, não vai retornar nada...
                 .accept(MediaType.APPLICATION_JSON);
 
+        //assert
+        mvc
+                .perform(request)
+                .andExpect(status().isNotFound());
     }
+
+
 
     private BookDTO createNewBook() {
         return BookDTO.builder().author("Artur").title("As aventuras").isbn("001").build();
