@@ -176,6 +176,22 @@ public class BookControlerTest {
                 .andExpect(status().isNoContent()); //OK ou NoContent. O Segundo é padrão RestFull.
     }
 
+    @Test
+    @DisplayName("DELETE - Deve retornar resource not found quando não encontrar um livro para deletar.")
+    public void deleteInexistentBookTest() throws Exception {
+
+        //arrange
+        BDDMockito.given(service.getById(anyLong())).willReturn(Optional.empty());
+
+        //act
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(BOOK_API.concat("/" + 1));
+
+        mvc
+                .perform(request)
+                .andExpect(status().isNotFound()); //OK ou NoContent. O Segundo é padrão RestFull.
+    }
+
     private BookDTO createNewBook() {
         return BookDTO.builder().author("Artur").title("As aventuras").isbn("001").build();
     }
