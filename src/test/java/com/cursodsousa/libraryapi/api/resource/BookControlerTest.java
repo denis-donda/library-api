@@ -163,7 +163,6 @@ public class BookControlerTest {
     @Test
     @DisplayName("DELETE - Deve deletar um livro.")
     public void deleteBookTest() throws Exception {
-
         //arrange
         BDDMockito.given(service.getById(anyLong())).willReturn(Optional.of(Book.builder().id(1l).build()));
 
@@ -190,6 +189,41 @@ public class BookControlerTest {
         mvc
                 .perform(request)
                 .andExpect(status().isNotFound()); //OK ou NoContent. O Segundo é padrão RestFull.
+    }
+
+    @Test
+    @DisplayName("PUT - Deve atualizar um livro.")
+    public void updateBookTest() throws Exception {
+        //arrange
+        Long id = 1L;
+        String json = new ObjectMapper().writeValueAsString(createNewBook());
+
+        Book updatingBook = Book.builder().id(1L).title("some title").author("some author").isbn("321").build();
+        BDDMockito.given(service.getById(id))
+                .willReturn(Optional.of(updatingBook));
+
+        //act
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .put(BOOK_API.concat("/" + 1))
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        //assert
+        mvc
+                .perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(id))
+                .andExpect(jsonPath("title").value(createNewBook().getTitle()))
+                .andExpect(jsonPath("author").value(createNewBook().getAuthor()))
+                .andExpect(jsonPath("isbn").value(createNewBook().getIsbn()))
+        ;
+    }
+
+    @Test
+    @DisplayName("PUT - Deve retornar 404 ao tentar atualizar um livro inexistente.")
+    public void updateInexistentBookTest() throws Exception {
+
     }
 
     private BookDTO createNewBook() {
