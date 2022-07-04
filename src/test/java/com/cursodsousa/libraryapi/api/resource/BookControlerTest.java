@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 //RunWith //Versão antiga do Junit... o 4
@@ -146,7 +147,7 @@ public class BookControlerTest {
     @DisplayName("GET - Deve retornar resource not found quando o livro procurado não existir.")
     public void bookNotFoundTest() throws Exception{
 
-        BDDMockito.given(service.getById(Mockito.anyLong())).willReturn(Optional.empty());
+        BDDMockito.given(service.getById(anyLong())).willReturn(Optional.empty());
 
         //act
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -159,7 +160,21 @@ public class BookControlerTest {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    @DisplayName("DELETE - Deve deletar um livro.")
+    public void deleteBookTest() throws Exception {
 
+        //arrange
+        BDDMockito.given(service.getById(anyLong())).willReturn(Optional.of(Book.builder().id(1l).build()));
+
+        //act
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(BOOK_API.concat("/" + 1));
+
+        mvc
+                .perform(request)
+                .andExpect(status().isNoContent()); //OK ou NoContent. O Segundo é padrão RestFull.
+    }
 
     private BookDTO createNewBook() {
         return BookDTO.builder().author("Artur").title("As aventuras").isbn("001").build();
