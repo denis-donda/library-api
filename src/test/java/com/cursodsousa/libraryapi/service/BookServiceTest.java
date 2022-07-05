@@ -100,4 +100,19 @@ public class BookServiceTest { //Apenas testes unitários
         assertThat(foundBook.get().getTitle()).isEqualTo(book.getTitle());
     }
 
+    @Test
+    @DisplayName("GET - Deve retornar vazio ao obter um livro por Id quando ele não existe na base.")
+    public void bookNotFoundByIdTest(){
+        //arrange
+        Long id = 1L;
+
+        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
+
+        //act
+        Optional<Book> book = service.getById(id);
+
+        //assert
+        assertThat(book.isPresent()).isFalse();
+    }
+
 }
