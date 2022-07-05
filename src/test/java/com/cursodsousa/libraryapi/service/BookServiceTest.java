@@ -34,7 +34,7 @@ public class BookServiceTest { //Apenas testes unitários
     }
 
     @Test
-    @DisplayName("Deve salvar o livro.")
+    @DisplayName("POST - Deve salvar o livro.")
     public void saveBookTest(){
         //arrange
         Book book= createValidBook(Book.builder());
@@ -59,7 +59,7 @@ public class BookServiceTest { //Apenas testes unitários
     }
 
     @Test
-    @DisplayName("Deve lançar erro de negocio ao tentar salvar um livro com isbn duplicado")
+    @DisplayName("POST - Deve lançar erro de negocio ao tentar salvar um livro com isbn duplicado")
     public void sholdNotSaveABookWithDuplicatedISBN(){
         //arranje
         Book book = createValidBook(Book.builder());
@@ -135,6 +135,41 @@ public class BookServiceTest { //Apenas testes unitários
 
         //assert
         Mockito.verify(repository, Mockito.never()).delete(book);
+    }
+
+    @Test
+    @DisplayName("PUT - Deve atualizar um livro.")
+    public void updateBookTest(){
+        Long id = 1L;
+
+        //arrange
+        Book updatingBook = Book.builder().id(id).build();
+        Book updatedBook = createValidBook(Book.builder());
+        updatedBook.setId(id);
+
+        Mockito.when(repository.save(updatingBook)).thenReturn(updatedBook);
+
+        //act
+        Book book = service.update(updatingBook);
+
+        //assert
+        assertThat(book.getId()).isEqualTo(updatedBook.getId());
+        assertThat(book.getTitle()).isEqualTo(updatedBook.getTitle());
+        assertThat(book.getIsbn()).isEqualTo(updatedBook.getIsbn());
+        assertThat(book.getAuthor()).isEqualTo(updatedBook.getAuthor());
+    }
+
+    @Test
+    @DisplayName("PUT - Deve ocorrer um erro ao tentar atualizar um livro existente.")
+    public void updateInvalidBookTest(){
+        //arrange
+        Book book = new Book();
+
+        //act
+        assertThrows(IllegalArgumentException.class, () -> service.update(book));
+
+        //assert
+        Mockito.verify(repository, Mockito.never()).save(book);
     }
 
 }
