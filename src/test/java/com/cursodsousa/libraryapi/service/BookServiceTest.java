@@ -4,25 +4,19 @@ import com.cursodsousa.libraryapi.api.exception.BusinessException;
 import com.cursodsousa.libraryapi.api.model.entity.Book;
 import com.cursodsousa.libraryapi.model.repository.BookRepository;
 import com.cursodsousa.libraryapi.service.impl.BookServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
@@ -39,7 +33,7 @@ public class BookServiceTest { //Apenas testes unitários
 
     @Test
     @DisplayName("Deve salvar o livro.")
-    public void sabeBookTest(){
+    public void saveBookTest(){
         //arrange
         Book book= createValidBook(Book.builder());
         Mockito.when(repository.existsByIsbn(Mockito.anyString())).thenReturn(false);
@@ -64,7 +58,7 @@ public class BookServiceTest { //Apenas testes unitários
 
     @Test
     @DisplayName("Deve lançar erro de negocio ao tentar salvar um livro com isbn duplicado")
-    public void sholdNotSabeABookWithDuplicatedISBN(){
+    public void sholdNotSaveABookWithDuplicatedISBN(){
         //arranje
         Book book = createValidBook(Book.builder());
         Mockito.when(repository.existsByIsbn(Mockito.anyString())).thenReturn(true);
@@ -113,6 +107,19 @@ public class BookServiceTest { //Apenas testes unitários
 
         //assert
         assertThat(book.isPresent()).isFalse();
+    }
+
+    @Test
+    @DisplayName("Deve deletar um livro.")
+    public void deleteBookTest(){
+        //arrange
+        Book book = Book.builder().id(1L).build();
+
+        //act
+        service.delete(book);
+
+        //assert
+        Mockito.verify(repository, Mockito.times(1)).delete(book);
     }
 
 }
