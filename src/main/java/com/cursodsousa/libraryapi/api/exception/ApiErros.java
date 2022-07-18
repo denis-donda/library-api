@@ -1,5 +1,6 @@
 package com.cursodsousa.libraryapi.api.exception;
 
+import com.cursodsousa.libraryapi.exception.BusinessException;
 import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;

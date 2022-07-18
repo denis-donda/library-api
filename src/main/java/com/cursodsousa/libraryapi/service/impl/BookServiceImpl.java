@@ -1,7 +1,7 @@
 package com.cursodsousa.libraryapi.service.impl;
 
-import com.cursodsousa.libraryapi.api.exception.BusinessException;
-import com.cursodsousa.libraryapi.api.model.entity.Book;
+import com.cursodsousa.libraryapi.exception.BusinessException;
+import com.cursodsousa.libraryapi.model.entity.Book;
 import com.cursodsousa.libraryapi.model.repository.BookRepository;
 import com.cursodsousa.libraryapi.service.BookService;
 import org.springframework.data.domain.Example;
@@ -61,5 +61,10 @@ public class BookServiceImpl implements BookService {
                         .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING) //Busca os livros que contenham...
         );
         return repository.findAll(example, pageRequest);
+    }
+
+    @Override
+    public Optional<Book> getBookByIsbn(String isbn) {
+        return null;
     }
 }

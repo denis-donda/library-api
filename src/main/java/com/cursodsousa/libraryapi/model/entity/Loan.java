@@ -1,6 +1,5 @@
 package com.cursodsousa.libraryapi.model.entity;
 
-import com.cursodsousa.libraryapi.api.model.entity.Book;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.cursodsousa.libraryapi.model.repository;
 
-import com.cursodsousa.libraryapi.api.model.entity.Book;
+import com.cursodsousa.libraryapi.model.entity.Book;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

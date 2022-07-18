@@ -1,11 +1,10 @@
 package com.cursodsousa.libraryapi.api.resource;
 
 import com.cursodsousa.libraryapi.api.dto.BookDTO;
-import com.cursodsousa.libraryapi.api.model.entity.Book;
-import com.cursodsousa.libraryapi.api.exception.BusinessException;
+import com.cursodsousa.libraryapi.model.entity.Book;
+import com.cursodsousa.libraryapi.exception.BusinessException;
 import com.cursodsousa.libraryapi.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.h2.mvstore.Page;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

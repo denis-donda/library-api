@@ -1,7 +1,7 @@
 package com.cursodsousa.libraryapi.service;
 
-import com.cursodsousa.libraryapi.api.exception.BusinessException;
-import com.cursodsousa.libraryapi.api.model.entity.Book;
+import com.cursodsousa.libraryapi.exception.BusinessException;
+import com.cursodsousa.libraryapi.model.entity.Book;
 import com.cursodsousa.libraryapi.model.repository.BookRepository;
 import com.cursodsousa.libraryapi.service.impl.BookServiceImpl;
 import org.assertj.core.api.Assertions;
