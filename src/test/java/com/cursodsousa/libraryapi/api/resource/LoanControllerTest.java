@@ -104,7 +104,6 @@ public class LoanControllerTest {
     @Test
     @DisplayName("Deve retornar erro ao tentar fazer emprestimo de um livro emprestado.")
     public void loanedBookErrorOnCreateLoanTest() throws  Exception{
-
         LoanDTO dto = LoanDTO.builder().isbn("123").customer("Fulano").build();
         String json = new ObjectMapper().writeValueAsString(dto);
 
