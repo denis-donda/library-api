@@ -149,7 +149,7 @@ public class LoanServiceTest {
         List<Loan> lista = Arrays.asList(loan);
 
         Page<Loan> page = new PageImpl<Loan>(lista, pageRequest, lista.size());
-        when( repository.findfindByBookIsbnOrCustomer(
+        when( repository.findByBookIsbnOrCustomer(
                 Mockito.anyString(),
                 Mockito.anyString(),
                 Mockito.any(PageRequest.class))

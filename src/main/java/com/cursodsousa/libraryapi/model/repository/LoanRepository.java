@@ -1,4 +1,4 @@
-package com.package com.cursodsousa.libraryapi.model.repository;
+package com.cursodsousa.libraryapi.model.repository;
 
 import com.cursodsousa.libraryapi.model.entity.Book;
 import com.cursodsousa.libraryapi.model.entity.Loan;

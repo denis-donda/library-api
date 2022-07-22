@@ -5,7 +5,6 @@ import com.cursodsousa.libraryapi.api.dto.LoanFilterDTO;
 import com.cursodsousa.libraryapi.api.dto.ReturnedLoanDTO;
 import com.cursodsousa.libraryapi.exception.BusinessException;
 import com.cursodsousa.libraryapi.model.entity.Book;
-import com.cursodsousa.libraryapi.api.model.entity.Loan;
 import com.cursodsousa.libraryapi.model.entity.Loan;
 import com.cursodsousa.libraryapi.service.BookService;
 import com.cursodsousa.libraryapi.service.LoanService;
