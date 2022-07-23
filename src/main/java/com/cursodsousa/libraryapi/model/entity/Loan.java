@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
+@Entity//Entidade do banco de dados...
 public class Loan {
 
     @Id

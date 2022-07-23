@@ -94,7 +94,6 @@ public class LoanServiceTest {
                 .hasMessage("Book already loaned");
 
         verify(repository, never()).save(savingLoan);
-
     }
 
     @Test
