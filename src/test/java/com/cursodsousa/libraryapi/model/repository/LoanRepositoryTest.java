@@ -67,6 +67,15 @@ public class LoanRepositoryTest {
         assertThat(result).hasSize(1).contains(loan);
     }
 
+    @Test
+    @DisplayName("Deve retornar vazio quando não houver emprestimos atrasados.")
+    public void notFindByLoanDateLessThanAndNotReturnedTest(){
+        Loan loan = createAndPersistLoan( LocalDate.now());
+
+        List<Loan> result = repository.findByLoanDateLessThanAndNotReturned(LocalDate.now().minusDays(4));
+
+        assertThat(result).isEmpty();
+    }
 
     public Loan createAndPersistLoan(LocalDate loanDate) {
         Book book = createNewBook("123");
