@@ -144,7 +144,6 @@ public class LoanControllerTest {
         ).andExpect( status().isOk() );
 
         Mockito.verify(loanService, Mockito.times(1)).update(loan);
-
     }
 
     @Test
@@ -162,13 +161,12 @@ public class LoanControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
         ).andExpect( status().isNotFound() );
-
     }
 
     @Test
     @DisplayName("Deve filtrar empréstimos")
     public void findLoansTest() throws Exception{
-        //cenário
+        //arrange
         Long id = 1l;
         Loan loan = LoanServiceTest.createLoan();
         loan.setId(id);
@@ -185,6 +183,7 @@ public class LoanControllerTest {
                 .get(LOAN_API.concat(queryString))
                 .accept(MediaType.APPLICATION_JSON);
 
+        //act/assert
         mvc
                 .perform( request )
                 .andExpect( status().isOk() )

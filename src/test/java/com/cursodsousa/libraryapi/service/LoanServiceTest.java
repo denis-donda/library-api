@@ -99,7 +99,7 @@ public class LoanServiceTest {
     @Test
     @DisplayName(" Deve obter as informações de um empréstimo pelo ID")
     public void getLoanDetaisTest(){
-        //cenário
+        //arrange
         Long id = 1l;
 
         Loan loan = createLoan();
@@ -107,10 +107,10 @@ public class LoanServiceTest {
 
         Mockito.when( repository.findById(id) ).thenReturn(Optional.of(loan));
 
-        //execucao
+        //act
         Optional<Loan> result = service.getById(id);
 
-        //verificacao
+        //assert
         assertThat(result.isPresent()).isTrue();
         assertThat(result.get().getId()).isEqualTo(id);
         assertThat(result.get().getCustomer()).isEqualTo(loan.getCustomer());
@@ -118,20 +118,22 @@ public class LoanServiceTest {
         assertThat(result.get().getLoanDate()).isEqualTo(loan.getLoanDate());
 
         verify( repository ).findById(id);
-
     }
 
     @Test
     @DisplayName("Deve atualizar um empréstimo.")
     public void updateLoanTest(){
+        //arrange
         Loan loan = createLoan();
         loan.setId(1l);
         loan.setReturned(true);
 
         when( repository.save(loan) ).thenReturn( loan );
 
+        //act
         Loan updatedLoan = service.update(loan);
 
+        //assert
         assertThat(updatedLoan.getReturned()).isTrue();
         verify(repository).save(loan);
     }
@@ -139,7 +141,7 @@ public class LoanServiceTest {
     @Test
     @DisplayName("Deve filtrar empréstimos pelas propriedades")
     public void findLoanTest(){
-        //cenario
+        //arrange
         LoanFilterDTO loanFilterDTO = LoanFilterDTO.builder().customer("Fulano").isbn("321").build();
 
         Loan loan = createLoan();
@@ -155,11 +157,11 @@ public class LoanServiceTest {
         )
                 .thenReturn(page);
 
-        //execucao
+        //act
         Page<Loan> result = service.find( loanFilterDTO, pageRequest );
 
 
-        //verificacoes
+        //assert
         assertThat(result.getTotalElements()).isEqualTo(1);
         assertThat(result.getContent()).isEqualTo(lista);
         assertThat(result.getPageable().getPageNumber()).isEqualTo(0);
