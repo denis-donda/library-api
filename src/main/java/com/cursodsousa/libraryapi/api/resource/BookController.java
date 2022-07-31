@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -28,8 +29,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BookController {
 
+    @Autowired(required = true)
     private final BookService service;
+    @Autowired
     private final ModelMapper modelMapper;
+    @Autowired
     private final LoanService loanService;
 
     @PostMapping

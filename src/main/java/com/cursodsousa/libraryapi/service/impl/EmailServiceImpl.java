@@ -14,8 +14,8 @@ import java.util.List;
 public class EmailServiceImpl implements EmailService {
 
     @Value("${application.mail.default-remetent}")
-    private String remetente;
-    private JavaMailSender javaMailSender;
+    private String remetent;
+    private final JavaMailSender javaMailSender;
 
     @Override
     public void sendMails(String message, List<String> mailsList) {
@@ -23,7 +23,7 @@ public class EmailServiceImpl implements EmailService {
         String[] mails = mailsList.toArray(new String[mailsList.size()]);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom(remetente);
+        mailMessage.setFrom(remetent);
         mailMessage.setSubject("Livro com espréstimo atrasado");
         mailMessage.setText(message);
         mailMessage.setTo(mails);
