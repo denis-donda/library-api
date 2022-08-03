@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -51,8 +52,8 @@ public class BookController {
         log.info(" obtaining details for book id: {} ", id);
         return service
                 .getById(id)
-                .map(book -> modelMapper.map(book, BookDTO.class))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .map( book -> modelMapper.map(book, BookDTO.class)  )
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND) );
     }
 
     @DeleteMapping("{id}")
@@ -95,9 +96,9 @@ public class BookController {
 
         return new PageImpl<BookDTO>(list, pageRequest, result.getTotalElements());
     }
-
     @GetMapping("{id}/loans")
     public Page<LoanDTO> loansByBook(@PathVariable Long id, Pageable pageable) {
+
         Book book = service.getById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Page<Loan> result = loanService.getLoansByBook(book, pageable);
         List<LoanDTO> list = result.getContent()
