@@ -1,6 +1,6 @@
 language: java
 jdk:
-  - azul-11.0.15
+  - oraclejdk11
 dist: trusty
 before_install:
   - chmod +x mvnw
