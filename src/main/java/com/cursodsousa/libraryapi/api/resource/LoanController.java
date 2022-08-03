@@ -5,11 +5,12 @@ import com.cursodsousa.libraryapi.api.dto.LoanDTO;
 import com.cursodsousa.libraryapi.api.dto.LoanFilterDTO;
 import com.cursodsousa.libraryapi.api.dto.ReturnedLoanDTO;
 import com.cursodsousa.libraryapi.model.entity.Book;
-import com.cursodsousa.libraryapi.exception.BusinessException;
 import com.cursodsousa.libraryapi.model.entity.Loan;
 import com.cursodsousa.libraryapi.service.BookService;
 import com.cursodsousa.libraryapi.service.LoanService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,6 +26,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/loans")
 @RequiredArgsConstructor
+@Api("Loan API")
+@Slf4j
 public class LoanController {
 
     private final LoanService service;
