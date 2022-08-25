@@ -26,7 +26,7 @@ Está API RestFull trata-se de um serviço de Livraria com cadastro e aluguél d
 - Lib verificações: AssertJ
 - Lib AllArgsConstructors: Lombook
 - Lib Map de Objetos: ModelMapper
-- Métricas: pring Boot Admin
+- Métricas: Spring Boot Admin
 
 ### FERRAMENTAS EXTERNAS
 - Versionador Código: Git & GitHub
@@ -41,7 +41,7 @@ Está API RestFull trata-se de um serviço de Livraria com cadastro e aluguél d
 ### Books API - Rotas
 
 ```
-#### POST (/api/books/) 
+- POST (/api/books/) 
 (201 Created)
 (400 BadRequest) // Quando tenta cadastrar 2 vezes o mesmo isbn. "errors": "Isbn já cadastrado."
 (401 Unauthorized)
